@@ -1,0 +1,23 @@
+class Solution:
+    def calPoints(self, operations: List[str]) -> int:
+        stack = []
+        stackPt = 0
+
+        for i in range(len(operations)):
+            if operations[i] == "+":
+                stack.append(stack[stackPt - 1] + stack[stackPt - 2])
+                stackPt += 1
+            elif operations[i] == "C":
+                stack.pop(stackPt - 1)
+                stackPt -= 1
+            elif operations[i] == "D":
+                stack.append(stack[stackPt - 1] * 2)
+                stackPt += 1
+            else:
+                stack.append(int(operations[i]))
+                stackPt += 1
+        sum = 0
+        for j in range(0, stackPt):
+            sum += stack[j]
+
+        return sum
